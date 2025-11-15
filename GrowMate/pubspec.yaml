@@ -1,0 +1,40 @@
+name: plant_monitor_app
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  fl_chart: ^0.68.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+  # 🔥 Add flutter_launcher_icons package
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+
+  uses-material-design: true
+
+  # 🔥 Add this asset folder (your GrowMate icon)
+  assets:
+    - assets/icon/
+
+# 🔥 Launcher icons configuration
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/growmate.png"
+  adaptive_icon_foreground: "assets/icon/growmate.png"
+  adaptive_icon_background: "#4CAF50"     # green background (you can change)
