@@ -28,7 +28,7 @@ class PlantMonitorApp extends StatelessWidget {
         // '/plant': (context) => const PlantPage(),
         // '/water': (context) => const WaterMonitorPage(),
         // '/sunlight': (context) => const SunlightMonitorPage(),
-        '/nutrition': (context) => NutritionMonitorPage(),
+        // '/nutrition': (context) => NutritionMonitorPage(),
       },
     );
   }

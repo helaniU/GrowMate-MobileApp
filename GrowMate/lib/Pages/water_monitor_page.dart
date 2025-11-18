@@ -3,6 +3,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../models/water_monitor_model.dart';
 import '../models/notification_manager.dart';
 import 'sunlight_monitor_page.dart';
+import 'nutrition_page.dart';
+import 'plant_page.dart';
 
 class WaterMonitorPage extends StatefulWidget {
   final String plantName;
@@ -43,7 +45,15 @@ class _WaterMonitorPageState extends State<WaterMonitorPage> {
 
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(context, '/dashboard');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => PlantPage(
+              plantName: widget.plantName,
+              plantImage: widget.plantImage,
+            ),
+          ),
+        );
         break;
       case 1:
         break; // Already on Water page
@@ -59,7 +69,22 @@ class _WaterMonitorPageState extends State<WaterMonitorPage> {
         );
         break;
       case 3:
-        Navigator.pushReplacementNamed(context, '/nutrition');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => NutritionMonitorPage(
+              plantName: widget.plantName,
+              plantImage: widget.plantImage,
+              nutrition: NutritionMonitor(
+                nutrientLevel: 'low',
+                nitrogen: 40,
+                phosphorus: 60,
+                potassium: 50,
+              ),
+            ),
+          ),
+        );
+
         break;
     }
   }
@@ -95,7 +120,7 @@ class _WaterMonitorPageState extends State<WaterMonitorPage> {
   Color getProgressColor(double percent) {
     if (percent < 0.3) return Colors.red.shade400;
     if (percent < 0.7) return Colors.yellow.shade700;
-    return Colors.green.shade600;
+    return Colors.blue.shade600;
   }
 
   @override
@@ -266,8 +291,8 @@ class _WaterMonitorPageState extends State<WaterMonitorPage> {
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            icon: Icon(Icons.grass),
+            label: 'Details',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.water_drop),

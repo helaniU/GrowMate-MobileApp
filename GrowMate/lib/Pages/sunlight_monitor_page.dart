@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../models/sunlight_monitor_model.dart';
 import 'water_monitor_page.dart';
+import 'nutrition_page.dart';
+import 'plant_page.dart';
 
 class SunlightMonitorPage extends StatefulWidget {
   final String plantName;
@@ -28,7 +30,15 @@ class _SunlightMonitorPageState extends State<SunlightMonitorPage> {
 
     switch (index) {
       case 0:
-        Navigator.pop(context); // go back to Dashboard
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => PlantPage(
+              plantName: widget.plantName,
+              plantImage: widget.plantImage,
+            ),
+          ),
+        );
         break;
       case 1:
         Navigator.push(
@@ -44,8 +54,22 @@ class _SunlightMonitorPageState extends State<SunlightMonitorPage> {
       case 2:
         break; // Already on Sunlight
       case 3:
-        Navigator.pushNamed(context, '/nutrition',
-            arguments: {'plantName': widget.plantName, 'plantImage': widget.plantImage});
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => NutritionMonitorPage(
+              plantName: widget.plantName,
+              plantImage: widget.plantImage,
+              nutrition: NutritionMonitor(
+                nutrientLevel: 'low',
+                nitrogen: 40,
+                phosphorus: 60,
+                potassium: 50,
+              ),
+            ),
+          ),
+        );
+
         break;
     }
   }
@@ -114,13 +138,13 @@ class _SunlightMonitorPageState extends State<SunlightMonitorPage> {
                   ? Image.asset(
                 widget.plantImage,
                 width: double.infinity,
-                height: 300,
+                height: 200,
                 fit: BoxFit.cover,
               )
                   : Image.file(
                 widget.plantImage,
                 width: double.infinity,
-                height: 300,
+                height: 200,
                 fit: BoxFit.cover,
               ),
             ),
@@ -224,8 +248,8 @@ class _SunlightMonitorPageState extends State<SunlightMonitorPage> {
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            icon: Icon(Icons.grass),
+            label: 'Details',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.water_drop),

@@ -17,7 +17,7 @@ class PlantPage extends StatefulWidget {
 }
 
 class _PlantPageState extends State<PlantPage> {
-  int _selectedIndex = 0; // For bottom navigation bar
+  int _selectedIndex = 0; // Bottom navigation index
 
   void _onNavItemTapped(int index) {
     if (index == _selectedIndex) return;
@@ -25,7 +25,7 @@ class _PlantPageState extends State<PlantPage> {
 
     switch (index) {
       case 0:
-        Navigator.pop(context);
+        Navigator.pop(context); // Back to dashboard
         break;
       case 1:
         Navigator.push(
@@ -53,7 +53,16 @@ class _PlantPageState extends State<PlantPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => NutritionMonitorPage(),
+            builder: (_) => NutritionMonitorPage(
+              plantName: widget.plantName,
+              plantImage: widget.plantImage,
+              nutrition: NutritionMonitor(
+                nutrientLevel: 'low',
+                nitrogen: 40,
+                phosphorus: 60,
+                potassium: 50,
+              ),
+            ),
           ),
         );
         break;
@@ -92,7 +101,7 @@ class _PlantPageState extends State<PlantPage> {
       imageProvider = FileImage(File(widget.plantImage));
     }
 
-    // For demo, placeholder plant details (replace with real data if needed)
+    // Placeholder plant details
     final Map<String, String> plantDetails = {
       "id": "001",
       "species": "Ficus",
@@ -104,102 +113,135 @@ class _PlantPageState extends State<PlantPage> {
     };
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.plantName),
-        backgroundColor: Colors.green.shade700,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // Plant Image
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.green.withOpacity(0.2),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              // Back Button
+              Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: darkGreen,
+                      size: 28,
+                    ),
                   ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image(
-                  image: imageProvider,
-                  width: double.infinity,
-                  height: 280,
-                  fit: BoxFit.cover,
                 ),
               ),
-            ),
+              const SizedBox(height: 20),
 
-            const SizedBox(height: 20),
-
-            // Plant Name
-            Text(
-              widget.plantName,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: darkGreen,
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Info Card
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
+              // Circular Plant Image
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                  border: Border.all(color: Colors.green.shade400, width: 4),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
                   ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildDetailRow(Icons.tag, "Plant ID", plantDetails["id"]!),
-                  buildDetailRow(Icons.local_florist, "Species", plantDetails["species"]!),
-                  buildDetailRow(Icons.calendar_today, "Added On", plantDetails["addedDate"]!),
-                  buildDetailRow(Icons.auto_graph, "Growth Stage", plantDetails["growthStage"]!),
-                  buildDetailRow(Icons.water_drop, "Water Need", plantDetails["waterRecommendation"]!),
-                  buildDetailRow(Icons.wb_sunny, "Sunlight Need", plantDetails["sunlightRecommendation"]!),
-                  buildDetailRow(Icons.landscape, "Soil Type", plantDetails["soilType"]!),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // Take Action button
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green.shade600,
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(22),
                 ),
               ),
-              child: const Text(
-                "Take Action",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+              const SizedBox(height: 20),
+
+              // Plant Name Box
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: darkGreen, width: 1.5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  widget.plantName,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: darkGreen,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+
+              const SizedBox(height: 30),
+
+              // Info Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildDetailRow(Icons.tag, "Plant ID", plantDetails["id"]!),
+                    buildDetailRow(Icons.local_florist, "Species", plantDetails["species"]!),
+                    buildDetailRow(Icons.calendar_today, "Added On", plantDetails["addedDate"]!),
+                    buildDetailRow(Icons.auto_graph, "Growth Stage", plantDetails["growthStage"]!),
+                    buildDetailRow(Icons.water_drop, "Water Need", plantDetails["waterRecommendation"]!),
+                    buildDetailRow(Icons.wb_sunny, "Sunlight Need", plantDetails["sunlightRecommendation"]!),
+                    buildDetailRow(Icons.landscape, "Soil Type", plantDetails["soilType"]!),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // Take Action Button
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green.shade600,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                ),
+                child: const Text(
+                  "Take Action",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
 
+      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
@@ -208,8 +250,8 @@ class _PlantPageState extends State<PlantPage> {
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            icon: Icon(Icons.grass),
+            label: 'Details',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.water_drop),

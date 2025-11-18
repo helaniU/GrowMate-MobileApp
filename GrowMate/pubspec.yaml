@@ -38,8 +38,6 @@ flutter:
     - assets/images/cactus.png
     - assets/images/perennial.png
 
-
-
 # 🔥 Launcher icons configuration
 flutter_icons:
   android: true
