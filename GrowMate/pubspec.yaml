@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  percent_indicator: ^4.2.2
+  image_picker: ^0.8.7+5
 
   cupertino_icons: ^1.0.8
   fl_chart: ^0.68.0
@@ -30,6 +32,13 @@ flutter:
   # 🔥 Add this asset folder (your GrowMate icon)
   assets:
     - assets/icon/
+    - assets/images/plant.png
+    - assets/images/aloe_vera.png
+    - assets/images/rose.png
+    - assets/images/cactus.png
+    - assets/images/perennial.png
+
+
 
 # 🔥 Launcher icons configuration
 flutter_icons:

@@ -1,6 +1,6 @@
-import 'water_supply_monitor.dart';
-import 'sunlight_monitor.dart';
-import 'nutrition_monitor.dart';
+import 'water_monitor_model.dart';
+import 'sunlight_monitor_model.dart';
+import 'nutrition_model.dart';
 
 class Plant {
   String plantId;

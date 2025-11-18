@@ -24,11 +24,11 @@ class PlantMonitorApp extends StatelessWidget {
       routes: {
         '/signin': (context) => const SignInPage(),
         '/signup': (context) => const SignUpPage(),
-        '/dashboard': (context) => const DashboardPage(),
-        '/plant': (context) => const PlantPage(),
-        '/water': (context) => const WaterMonitorPage(),
-        '/sunlight': (context) => const SunlightMonitorPage(),
-        '/nutrition': (context) => const NutritionMonitorPage(),
+        '/dashboard': (context) => const DashboardPage(userName: 'Helani'),
+        // '/plant': (context) => const PlantPage(),
+        // '/water': (context) => const WaterMonitorPage(),
+        // '/sunlight': (context) => const SunlightMonitorPage(),
+        '/nutrition': (context) => NutritionMonitorPage(),
       },
     );
   }

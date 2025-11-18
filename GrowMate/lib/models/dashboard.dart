@@ -1,4 +1,4 @@
-import 'plant.dart';
+import 'plant_model.dart';
 import 'user.dart';
 
 class Dashboard {
